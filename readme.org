@@ -8,9 +8,12 @@ It allows you to embed arbitrary Racket expressions in a file, making the file r
 An example file, =myfile.pxt=:
 #+BEGIN_EXAMPLE
 #lang ptext
+!@(require racket/string)@!
 !@(define thisyear (date-year (seconds->date (current-seconds))))@!
+!@(define cwd (path->string (current-directory)))@!
 This is my text document.
-It was written in !@thisyear@!, and located in !@(path->string (current-directory))@!.
+It was written in !@thisyear@!, and located in !@cwd@!,
+which is !@(if (string-contains? cwd "/tmp") "" "not ")@!in /tmp.
 #+END_EXAMPLE
 
 Running this "program" with
@@ -18,7 +21,8 @@ Running this "program" with
 produces
 #+BEGIN_EXAMPLE
 This is my text document.
-It was written in 2018, and located in /tmp/.
+It was written in 2018, and located in /tmp/,
+which is in /tmp.
 #+END_EXAMPLE
 
 * Installation
