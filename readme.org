@@ -1,0 +1,33 @@
+#+TITLE: ptext: Programmable Plain Text
+
+* Enliven your text
+=ptext= allows you to write programmable text documents by mixing code and text.
+It allows you to embed arbitrary Racket expressions in a file, making the file runnable to produce another file.
+
+* Usage
+An example file, =myfile.pxt=:
+#+BEGIN_EXAMPLE
+#lang ptext
+!@(define thisyear (date-year (seconds->date (current-seconds))))@!
+This is my text document.
+It was written in !@thisyear@!, and located in !@(path->string (current-directory))@!.
+#+END_EXAMPLE
+
+Running this "program" with
+: racket myfile.pxt
+produces
+#+BEGIN_EXAMPLE
+
+
+This is my text document.
+It was written in 2018, and located in /tmp/.
+#+END_EXAMPLE
+
+* Installation
+: git clone https://github.com/LLazarek/ptext.git
+: cd ptext
+: raco pkg install
+
+* TODOs
+- Allow functions to operate on surrounding text.
+  - E.g. Replace text in remainder of file.
