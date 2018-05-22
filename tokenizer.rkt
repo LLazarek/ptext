@@ -4,7 +4,7 @@
 
 (define (make-tokenizer port)
   (define (next-token)
-    (define rapp-lexer
+    (define ptext-lexer
       (lexer
        [(eof) eof]
        [(from/to "!@" "@!")
@@ -13,7 +13,7 @@
         (token 'SEXP-TOK (read (open-input-string
                                 (trim-ends "!@" lexeme "@!"))))]
        [any-char (token 'CHAR-TOK lexeme)]))
-    (rapp-lexer port))
+    (ptext-lexer port))
   next-token)
 
 (provide make-tokenizer)

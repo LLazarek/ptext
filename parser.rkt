@@ -1,4 +1,4 @@
 #lang brag
-rapp-program : (text-str | rapp-sexp)*
-rapp-sexp : SEXP-TOK
+ptext-program : (text-str | ptext-sexp)*
+ptext-sexp : SEXP-TOK
 text-str : CHAR-TOK+

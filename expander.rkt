@@ -1,24 +1,24 @@
 #lang br/quicklang
 (require (for-syntax racket/string))
 
-(define-macro (rapp-mb PARSE-TREE)
+(define-macro (ptext-mb PARSE-TREE)
   #'(#%module-begin
      PARSE-TREE))
 
-(provide (rename-out [rapp-mb #%module-begin]))
+(provide (rename-out [ptext-mb #%module-begin]))
 
 (define-macro (text-str CHAR-STR ...)
   #'(display (string-append CHAR-STR ...)))
 
-(define-macro (rapp-program TEXT/SEXP ...)
+(define-macro (ptext-program TEXT/SEXP ...)
   #'(begin TEXT/SEXP ...))
 
-(define-macro-cases rapp-sexp
-  [(rapp-sexp (define DEF ...))
+(define-macro-cases ptext-sexp
+  [(ptext-sexp (define DEF ...))
    #'(define DEF ...)]
-  [(rapp-sexp (require MOD ...))
+  [(ptext-sexp (require MOD ...))
    #'(require MOD ...)]
-  [(rapp-sexp OTHER)
+  [(ptext-sexp OTHER)
    #'(display OTHER)])
 
 ;; The reason that this doesn't work is that when we do format-datum,
@@ -33,14 +33,14 @@
 ;; string with format-datum).
 ;;
 ;; See https://beautifulracket.com/basic-3/command-line-arguments.html#the-limits-of-hygiene
-#;(define-macro (rapp-sexp SEXP-STR)
+#;(define-macro (ptext-sexp SEXP-STR)
   (with-pattern ([SEXP-STX (format-datum '~a #'SEXP-STR)])
     (if (string-contains? (syntax->datum #'SEXP-STR) "define") 
         #'SEXP-STX
         #'(display SEXP-STX))))
 
 (require racket/base)
-(provide text-str rapp-program rapp-sexp
+(provide text-str ptext-program ptext-sexp
          (except-out (all-from-out racket/base)
                      #%module-begin))
 
