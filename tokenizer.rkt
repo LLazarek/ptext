@@ -14,12 +14,12 @@
        ;;  ;; This is the only thing on this line, so remove the line from output
        ;;  (token 'SEXP-TOK (read (open-input-string
        ;;                          (trim-ends "\n!@" lexeme "@!\n"))))]
-       [(from/to "!@" "@!")
+       [(from/to "`" "`")
         ;; "Embedded" expressions (not sole thing on line) leave
         ;; surroundings completely intact
         (token 'SEXP-TOK (read (open-input-string
-                                (trim-ends "!@" lexeme "@!"))))]
-       [(:+ (:~ "!" "@"))
+                                (trim-ends "`" lexeme "`"))))]
+       [(:+ (:~ "`"))
         (token 'CHAR-TOK lexeme)]
        [any-char
         (token 'CHAR-TOK lexeme)]))
