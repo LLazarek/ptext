@@ -17,8 +17,6 @@ Running this "program" with
 : racket myfile.pxt
 produces
 #+BEGIN_EXAMPLE
-
-
 This is my text document.
 It was written in 2018, and located in /tmp/.
 #+END_EXAMPLE
